@@ -1,0 +1,21 @@
+Better Multiplayer is a mod that hopes to improve the multiplayer experience right where its lacking, with everything being configurable!
+
+Features:
+- Every feature listed can be toggled on or off
+
+- Forces everyone who joins to automatically join a team.
+-- Team color is selectable based upon config.
+
+- Whenever a player dies during a boss, that player is unable to respawn until the boss has been defeated or every player has been killed.
+-- This completely prevents the cheesing method of spacing out your deaths and taking turns respawning to the point where the boss is unable to despawn.
+
+- If you die during a boss fight, your camera gets fixated on the boss so you can spectate the action going on. 
+-- This is mostly meant to be used with the no boss fight respawn feature above.
+
+- Nerfs Reaver Shark to be 64% pickaxe power.
+-- No more relying on trust; prevents the sequence breaking method that allows you to get hellstone pre-boss while still letting it be the most powerful pickaxe pre-boss.
+
+- Witch Doctor now sells Wormhole Potions
+-- An easy way to get wormhole potions without relying on fishing and herb farming.
+
+This mod isn't made for singleplayer, don't use it if you're not playing with others.
