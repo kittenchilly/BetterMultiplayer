@@ -11,6 +11,7 @@ namespace BetterMultiplayer
 		public bool teamLoaded = false;
 		public string teamChosen = GetInstance<BMConfig>().TeamToJoin;
 		public int team;
+
 		public override void OnEnterWorld(Player player)
 		{
 			base.OnEnterWorld(player);
@@ -69,28 +70,23 @@ namespace BetterMultiplayer
 		{
 			if (BMConfig.Instance.NoBossFightRespawn)
 			{
-				bool flag = false;
-				for (int i = 0; i < Main.maxNPCs; i++)
+				if (BossAlive())
 				{
-					NPC npc = Main.npc[i];
-					if (npc.active && (npc.boss || npc.type == NPCID.EaterofWorldsHead))
-					{
-						Player bosstarget = Main.player[npc.target];
-						if (!bosstarget.active || bosstarget.dead)
-						{
-							break;
-						}
-						flag = true;
-						break;
-					}
+					player.respawnTimer++;
 				}
-				if (!flag)
-				{
-					return;
-				}
-				player.respawnTimer++;
 			}
 		}
+
+		public override void Kill(double damage, int hitDirection, bool pvp, string deathText)
+        {
+			if (BMConfig.Instance.AddedBossFightRespawnTime != 0)
+			{
+				if (BossAlive())
+				{
+					player.respawnTimer += BMConfig.Instance.AddedBossFightRespawnTime;
+				}
+			}
+        }
 
 		public override void SendClientChanges(ModPlayer localPlayer)
 		{
@@ -106,6 +102,26 @@ namespace BetterMultiplayer
 				}
 				base.SendClientChanges(localPlayer);
 			}
+		}
+
+		public bool BossAlive() 
+		{
+			bool flag = false;
+			for (int i = 0; i < Main.maxNPCs; i++)
+			{
+				NPC npc = Main.npc[i];
+				if (npc.active && (npc.boss || npc.type == NPCID.EaterofWorldsHead))
+				{
+					Player bosstarget = Main.player[npc.target];
+					if (!bosstarget.active || bosstarget.dead)
+					{
+						break;
+					}
+					flag = true;
+					break;
+				}
+			}
+			return flag;
 		}
 	}
 }
