@@ -34,6 +34,10 @@ namespace BetterMultiplayer
 		[Label("Disable Respawning during Boss Fights")]
 		public bool NoBossFightRespawn;
 
+		[DefaultValue(0)]
+		[Label("Additional time to respawn during boss fights")]
+		public int AddedBossFightRespawnTime;
+
 		[DefaultValue(true)]
 		[Label("Boss Death Cam")]
 		public bool DeathCam;
