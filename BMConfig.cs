@@ -8,13 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.Serialization;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
-using Terraria.ModLoader.Config.UI;
-using Terraria.UI;
 
 
 namespace BetterMultiplayer
@@ -45,5 +39,22 @@ namespace BetterMultiplayer
 		[DefaultValue(true)]
 		[Label("Witch Doctor sells Wormhole Potions")]
 		public bool WitchDoctorWormhole;
-	}
+
+        public override bool AcceptClientChanges(ModConfig pendingConfig, int whoAmI, ref string message)
+        {
+			if (BetterMultiplayer.instance.herosmod != null)
+			{
+				//find a better alternative?
+				if (BetterMultiplayer.instance.herosmod.Call("HasPermission", whoAmI, BetterMultiplayer.heropermission) is bool result && result)
+				{
+					return true;
+				}
+			}
+			else
+			{
+				return base.AcceptClientChanges(pendingConfig, whoAmI, ref message);
+			}
+			return false;
+        }
+    }
 }
