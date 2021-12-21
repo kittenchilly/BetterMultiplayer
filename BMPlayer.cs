@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
@@ -45,26 +44,6 @@ namespace BetterMultiplayer
 			}
 		}
 
-		public override void ModifyScreenPosition() //death cam
-		{
-			if (BMConfig.Instance.DeathCam)
-			{
-				if (Main.netMode != 1)
-				{
-					return;
-				}
-				for (int i = 0; i < Main.maxNPCs; i++)
-				{
-					if (Main.npc[i].active && Main.npc[i].GetBossHeadTextureIndex() >= 0 && Main.npc[i].GetBossHeadTextureIndex() < Main.npcHeadBossTexture.Length && player.dead)
-					{
-						Vector2 size = new Vector2(Main.screenWidth, Main.screenHeight);
-
-						Main.screenPosition = Main.npc[i].Center - size / 2;
-					}
-				}
-			}
-		}
-
 		public override void UpdateDead() //no boss fight respawn
 		{
 			if (BMConfig.Instance.NoBossFightRespawn)
@@ -88,7 +67,7 @@ namespace BetterMultiplayer
 				{
 					return;
 				}
-				player.respawnTimer++;
+				Player.respawnTimer++;
 			}
 		}
 
@@ -100,7 +79,7 @@ namespace BetterMultiplayer
 				{
 					if (Main.player[Main.myPlayer].team > 0)
 					{
-						NetMessage.SendData(45, -1, -1, null, Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData(MessageID.PlayerTeam, -1, -1, null, Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
 					}
 					teamLoaded = true;
 				}

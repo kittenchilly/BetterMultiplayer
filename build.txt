@@ -1,4 +1,4 @@
 displayName = Better Multiplayer
 author = kittenchilly
-version = 1.1
-homepage = https://discord.gg/ydJvsSS
+version = 1.5
+homepage = https://github.com/kittenchilly/BetterMultiplayer

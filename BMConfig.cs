@@ -1,21 +1,7 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Runtime.Serialization;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
-using Terraria.ModLoader.Config.UI;
-using Terraria.UI;
-
 
 namespace BetterMultiplayer
 {
@@ -35,15 +21,35 @@ namespace BetterMultiplayer
 		public bool NoBossFightRespawn;
 
 		[DefaultValue(true)]
-		[Label("Boss Death Cam")]
-		public bool DeathCam;
-
-		[DefaultValue(true)]
-		[Label("Reaver Shark Nerf")]
-		public bool NerfReaverShark;
-
-		[DefaultValue(true)]
 		[Label("Witch Doctor sells Wormhole Potions")]
 		public bool WitchDoctorWormhole;
+
+		// Code created by Jopojelly, taken from CheatSheet
+		private bool IsPlayerLocalServerOwner(Player player)
+		{
+			if (Main.netMode == NetmodeID.MultiplayerClient)
+			{
+				return Netplay.Connection.Socket.GetRemoteAddress().IsLocalHost();
+			}
+			for (int plr = 0; plr < Main.maxPlayers; plr++)
+			{
+				RemoteClient NetPlayer = Netplay.Clients[plr];
+				if (NetPlayer.State == 10 && Main.player[plr] == player && NetPlayer.Socket.GetRemoteAddress().IsLocalHost())
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public override bool AcceptClientChanges(ModConfig pendingConfig, int whoAmI, ref string message)
+		{
+			if (!IsPlayerLocalServerOwner(Main.player[whoAmI]))
+			{
+				message = "Only the host is allowed to change this config.";
+				return false;
+			}
+			return true;
+		}
 	}
 }
