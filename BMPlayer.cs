@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using System.Linq;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
@@ -42,26 +43,10 @@ namespace BetterMultiplayer
 		{
 			if (BMConfig.Instance.NoBossFightRespawn)
 			{
-				bool flag = false;
-				for (int i = 0; i < Main.maxNPCs; i++)
+				if (Main.npc.Any(n => n.whoAmI < Main.maxNPCs && n.active && n.boss))
 				{
-					NPC npc = Main.npc[i];
-					if (npc.active && (npc.boss || npc.type == NPCID.EaterofWorldsHead))
-					{
-						Player bosstarget = Main.player[npc.target];
-						if (!bosstarget.active || bosstarget.dead)
-						{
-							break;
-						}
-						flag = true;
-						break;
-					}
+					Player.respawnTimer = 5;
 				}
-				if (!flag)
-				{
-					return;
-				}
-				Player.respawnTimer++;
 			}
 		}
 	}
