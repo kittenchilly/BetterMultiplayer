@@ -10,18 +10,15 @@ namespace BetterMultiplayer
 		public override ConfigScope Mode => ConfigScope.ServerSide;
 		public static BMConfig Instance;
 
-		[Label("Team To Join")]
 		[DrawTicks]
 		[OptionStrings(new string[] { "None", "Red", "Green", "Blue", "Yellow", "Pink" })]
 		[DefaultValue("Red")]
 		public string TeamToJoin;
 
 		[DefaultValue(true)]
-		[Label("Disable Respawning during Boss Fights")]
 		public bool NoBossFightRespawn;
 
 		[DefaultValue(true)]
-		[Label("Witch Doctor sells Wormhole Potions")]
 		public bool WitchDoctorWormhole;
 
 		// Code created by Jopojelly, taken from CheatSheet

@@ -1,0 +1,20 @@
+Configs: {
+	BMConfig: {
+		DisplayName: B M Config
+
+		TeamToJoin: {
+			Label: Team To Join
+			Tooltip: ""
+		}
+
+		NoBossFightRespawn: {
+			Label: Disable Respawning during Boss Fights
+			Tooltip: ""
+		}
+
+		WitchDoctorWormhole: {
+			Label: Witch Doctor sells Wormhole Potions
+			Tooltip: ""
+		}
+	}
+}

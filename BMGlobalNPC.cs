@@ -6,16 +6,15 @@ namespace BetterMultiplayer
 {
 	public class BMGlobalNPC : GlobalNPC
 	{
-		public override void SetupShop(int type, Chest shop, ref int nextSlot)
-		{
-			if (BMConfig.Instance.WitchDoctorWormhole)
-			{
-				if (type == NPCID.WitchDoctor)
-				{
-					shop.item[nextSlot].SetDefaults(ItemID.WormholePotion);
-					nextSlot++;
-				}
-			}
-		}
+        public override void ModifyShop(NPCShop shop)
+        {
+            if (BMConfig.Instance.WitchDoctorWormhole)
+            {
+                if (shop.NpcType == NPCID.WitchDoctor)
+                {
+                    shop.Add(ItemID.WormholePotion);
+                }
+            }
+        }
 	}
 }

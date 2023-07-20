@@ -10,7 +10,7 @@ namespace BetterMultiplayer
 	{
 		public string teamChosen = GetInstance<BMConfig>().TeamToJoin;
 		public int team = 0;
-		public override void OnEnterWorld(Player player)
+		public override void OnEnterWorld()
 		{
 			team = teamChosen switch
 			{
@@ -24,7 +24,7 @@ namespace BetterMultiplayer
 			};
 		}
 
-		public override void clientClone(ModPlayer clientClone)
+		public override void CopyClientState(ModPlayer clientClone)
 		{
 			clientClone.Player.team = team;
 		}
