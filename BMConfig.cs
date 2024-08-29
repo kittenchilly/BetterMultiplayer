@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader.Config;
 
 namespace BetterMultiplayer
@@ -21,31 +22,14 @@ namespace BetterMultiplayer
 		[DefaultValue(true)]
 		public bool WitchDoctorWormhole;
 
-		// Code created by Jopojelly, taken from CheatSheet
-		private bool IsPlayerLocalServerOwner(Player player)
+		public override bool AcceptClientChanges(ModConfig pendingConfig, int whoAmI, ref NetworkText message)
 		{
-			if (Main.netMode == NetmodeID.MultiplayerClient)
+			if (!NetMessage.DoesPlayerSlotCountAsAHost(whoAmI))
 			{
-				return Netplay.Connection.Socket.GetRemoteAddress().IsLocalHost();
-			}
-			for (int plr = 0; plr < Main.maxPlayers; plr++)
-			{
-				RemoteClient NetPlayer = Netplay.Clients[plr];
-				if (NetPlayer.State == 10 && Main.player[plr] == player && NetPlayer.Socket.GetRemoteAddress().IsLocalHost())
-				{
-					return true;
-				}
-			}
-			return false;
-		}
-
-		public override bool AcceptClientChanges(ModConfig pendingConfig, int whoAmI, ref string message)
-		{
-			if (!IsPlayerLocalServerOwner(Main.player[whoAmI]))
-			{
-				message = "Only the host is allowed to change this config.";
+                message = NetworkText.FromKey("tModLoader.ModConfigRejectChangesNotHost");
 				return false;
 			}
+
 			return true;
 		}
 	}
